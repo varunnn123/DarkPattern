@@ -43,3 +43,32 @@ print("Accuracy:", metrics.accuracy_score(y_pred, y_test))
 
 dump(clf, 'category_classifier.joblib')
 dump(count_vect, 'category_vectorizer.joblib')
+
+# Display a few examples of predicted vs actual labels
+num_examples = 5  # Set the number of examples to display
+
+
+
+print("\nExamples of Predicted vs Actual Labels:")
+for i in range(min(num_examples, len(X_test))):
+    try:
+        actual_label = id_to_category[y_test.iloc[i]]
+    except KeyError:
+        actual_label = f" (ID: {y_test.iloc[i]})"
+    
+    try:
+        predicted_label = id_to_category[y_pred[i]]
+    except KeyError:
+        predicted_label = f" (ID: {y_pred[i]})"
+    
+    print(f"\nExample {i + 1}:")
+    print(f"Text: {X_test.iloc[i]}")
+    print(f"Actual Label: {actual_label}")
+    print(f"Predicted Label: {predicted_label}")
+
+# Display unique values in y_test and y_pred
+print("Unique values in y_test:", y_test.unique())
+print("Unique values in y_pred:", pd.Series(y_pred).unique())
+
+# Display the id_to_category dictionary
+print("id_to_category dictionary:", id_to_category)
